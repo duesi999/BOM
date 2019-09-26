@@ -53,8 +53,6 @@ q2_answ <- data %>%
   #group by month and get average temp fifference
   group_by(Month) %>%
   summarise(Temp_diff_avg = mean(Temp_diff)) %>%
-  #ungroup
-  ungroup() %>%
   #get lowest temperatire difference accross months
   filter(Temp_diff_avg == min(Temp_diff_avg))
 
@@ -115,11 +113,15 @@ q4_answ <- data %>%
   #filter for minimum and maximun longitude
   filter(lon == min(lon) | lon == max(lon)) %>%
   #convert solar exposure to numeric, remove NAs 
-  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%
+  mutate(Solar_exposure = as.numeric(Solar_exposure),
+  lon = as.numeric(lon)) %>%
   drop_na(Solar_exposure) %>%
   #group by station number and calculate mean solar exposure
   group_by(Station_number, lon) %>%
-  summarise(Solar_exposure_avg = mean(Solar_exposure))
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%
+  ungroup() %>%
+  #create new variable to with station location info based on longitude
+  mutate("Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
 
 #Answer q4:
 q4_answ
