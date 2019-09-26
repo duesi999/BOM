@@ -1,0 +1,395 @@
+survey_vector <- c("M", "F, "F", "M", "M")
+"
+survey_vector <- c("M", "F", "F", "M", "M")
+str(survey_vector)
+factor_survey_vector <- factor(survey_vector)
+str(factor_survey_vector)
+levels(factor_survey_vector) <- c("Female", "Male")
+str(factor_survey_vector)
+matrix(1:9, nrow=3)
+TRUE ++ TRUE
+TRUE == TRUE
+x <- 5#
+y <- 7#
+!(!(x < 4) & !!!(y > 12))
+> # Chunk 1#
++ library(data.table)#
++ require(rjson)#
++ # Chunk 2#
++ library("data.table")#
++ require(rjson)#
++ #
++ # Chunk 3#
++ library(data.table)#
++ require(rjson, character.only = TRUE)#
++ #
++ # Chunk 4#
++ library(c("data.table", "rjson"))
+library(data.table)#
++ require(rjson)
+?require
+function(x) c(min = min(x), mean = mean(x), max = max(x)))
+sapply(list(runif (10), runif (10)), function(x) c(min = min(x), mean = mean(x), max = max(x)))
+runif(10)
+sapply(list(runif (10), runif (10)), c(min = min(x), mean = mean(x), max = max(x)))
+awards <- c("Won 1 Oscar.",#
+  "Won 1 Oscar. Another 9 wins & 24 nominations.",#
+  "1 win and 2 nominations.",#
+  "2 wins & 3 nominations.",#
+  "Nominated for 2 Golden Globes. 1 more win & 2 nominations.",#
+  "4 wins & 1 nomination.")#
+#
+sub(".*\\s([0-9]+)\\snomination.*$", "\\1", awards)
+awards
+sub(".*\\s([0-9]+)\\snomination.*$", "\\1", awards)
+library(tidyverse)
+ls()
+setwd("~/Documents/CSIRO/Administration/training/DataSchool/DataSchoolExcercises/gapminder")
+gapminder <- read_csv("data/gapminder.csv")
+gapminder_2012 <- read_csv("data/gapminder_2012.csv")
+gapminder
+tail(gapminder)
+max$yeargapminder)
+max()year$gapminder)
+max(year$gapminder)
+max(gapminder$year)
+gapminder$year
+gapminder_2012$year
+b
+bind_rows(gapminder, gapminder_2012)
+table4a
+table2
+spead(table2, type, count)
+spread(table2, type, count)
+table2_wide <- spread(table2, type, count)
+table2_wide
+table2_wide_wide <- spread(table2_wide, year, c(cases, population))
+table2_wide_wide <- spread(table2_wide, year, cases)
+table@_wide_wide
+table2_wide_wide
+cls()
+setwd("~/Documents/CSIRO/Administration/training/DataSchool/DataSchoolExcercises/BOM")
+ls()
+setwd("~/Documents/CSIRO/Administration/training/DataSchool/DataSchoolExcercises/BOM")
+ls()
+library(tidyverse)
+library(tidyverse)
+data <- read_csv("data/BOM_data.csv")#
+stations <- read_csv("data/BOM_stations.csv")
+q1_answ <- data %>%#
+  #separate Temp_min_max into two and convert temps and rainfall to numeric#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Rainfall = as.numeric(Rainfall),#
+    Solar_exposure = as.numeric(Solar_exposure)#
+  )
+str(q1_answ)
+is.na(q1_answ$Temp_min)
+q1_answ <- data %>%#
+  #separate Temp_min_max into two and convert temps and rainfall to numeric#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Rainfall = as.numeric(Rainfall),#
+    Solar_exposure = as.numeric(Solar_exposure)#
+  ) %>%#
+  #remove NAs#
+  filter(#
+    !is.na(Temp_min),#
+    !is.na(Temp_max),#
+    !is.na(Rainfall)#
+  ) %>%#
+  group_by(Station_number) %>%#
+  summarise(count = n())#
+#
+#answer to Q1#
+q1_answ
+q3_answ <- data %>%#
+  #join datatsets#
+  left_join(stations_1, by = "Station_number") %>%#
+  #same as above, separate temp column and convert to numeric#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Temp_diff = (Temp_max - Temp_min)#
+  ) %>%#
+  #remove NAs#
+  drop_na(Temp_diff) %>%#
+  #group by state and calculate mean temp diff#
+  group_by(state) %>%#
+  summarise(Temp_diff_avg = mean(Temp_diff)) %>%#
+  #get minimum temp diff#
+  filter(Temp_diff_avg == min(Temp_diff_avg))#
+#
+#answer q3: QLD has the lowest temperature difference#
+q3_answ
+library(tidyverse)
+stations_1 <- stations %>% #
+  gather(Station_number, values, -info) %>%#
+  filter(info == "state") %>%#
+  select(-info)%>%#
+  rename(state = values) %>%#
+  mutate(Station_number = as.numeric(Station_number))#
+#
+q3_answ <- data %>%#
+  #join datatsets#
+  left_join(stations_1, by = "Station_number") %>%#
+  #same as above, separate temp column and convert to numeric#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Temp_diff = (Temp_max - Temp_min)#
+  ) %>%#
+  #remove NAs#
+  drop_na(Temp_diff) %>%#
+  #group by state and calculate mean temp diff#
+  group_by(state) %>%#
+  summarise(Temp_diff_avg = mean(Temp_diff)) %>%#
+  #get minimum temp diff#
+  filter(Temp_diff_avg == min(Temp_diff_avg))#
+#
+#answer q3: QLD has the lowest temperature difference#
+q3_answ
+q2_answ <- data %>%#
+  #separate Temp_min_max into two and convert temps to numeric; calculate temperature difference#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Temp_diff = (Temp_max - Temp_min)#
+  ) %>%#
+  #remove NAs from newly created variable#
+  drop_na(Temp_diff) %>%#
+  #group by month and get average temp fifference#
+  group_by(Month) %>%#
+  summarise(Temp_diff_avg = mean(Temp_diff)) %>%#
+  #ungroup#
+  ungroup() %>%#
+  #get lowest temperatire difference accross months#
+  filter(Temp_diff_avg == min(Temp_diff_avg))#
+#
+#answer q2; month 6 (June) has the lowest average temperature difference#
+q2_answ
+#Which month saw the lowest average daily temperature difference?#
+q2_answ <- data %>%#
+  #separate Temp_min_max into two and convert temps to numeric; calculate temperature difference#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Temp_diff = (Temp_max - Temp_min)#
+  ) %>%#
+  #remove NAs from newly created variable#
+  drop_na(Temp_diff) %>%#
+  #group by month and get average temp fifference#
+  group_by(Month) %>%#
+  summarise(Temp_diff_avg = mean(Temp_diff))
+q2_answ
+q2_answ <- data %>%#
+  #separate Temp_min_max into two and convert temps to numeric; calculate temperature difference#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Temp_diff = (Temp_max - Temp_min)#
+  ) %>%#
+  #remove NAs from newly created variable#
+  drop_na(Temp_diff) %>%#
+  #group by month and get average temp fifference#
+  group_by(Month) %>%#
+  summarise(Temp_diff_avg = mean(Temp_diff)) %>%#
+  #ungroup#
+  ungroup() %>%#
+  #get lowest temperatire difference accross months#
+  filter(Temp_diff_avg == min(Temp_diff_avg))#
+#
+#answer q2; month 6 (June) has the lowest average temperature difference#
+q2_answ
+q2_answ <- data %>%#
+  #separate Temp_min_max into two and convert temps to numeric; calculate temperature difference#
+  separate(Temp_min_max, into = c("Temp_min", "Temp_max"), sep = "/") %>%#
+  mutate(#
+    Temp_min = as.numeric(Temp_min),#
+    Temp_max = as.numeric(Temp_max),#
+    Temp_diff = (Temp_max - Temp_min)#
+  ) %>%#
+  #remove NAs from newly created variable#
+  drop_na(Temp_diff) %>%#
+  #group by month and get average temp fifference#
+  group_by(Month) %>%#
+  summarise(Temp_diff_avg = mean(Temp_diff)) %>%#
+  #ungroup#
+ # ungroup() %>%#
+  #get lowest temperatire difference accross months#
+  filter(Temp_diff_avg == min(Temp_diff_avg))#
+#
+#answer q2; month 6 (June) has the lowest average temperature difference#
+q2_answ
+stations_2 <- stations %>%#
+  gather(Station_number, values, -info) %>%#
+  filter(info == "lon" | info == "lat") %>%#
+  spread(info, values) %>%#
+  mutate(Station_number = as.numeric(Station_number))#
+#
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure))#
+#
+#Answer q4:#
+q4_answ
+q4_answ
+lon == max(lon) ~ 'eastmost')
+lon == max(lon) ~ 'eastmost'))
+lon == max(lon) ~ "eastmost"))
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(Station_location = case_when(lon == min(lon) ~ "westmost",#
+  										lon == max(lon) ~ "eastmost"))
+q4_answ
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(Station_location = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))#
+#
+#Answer q4:#
+q4_answ
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(lon == as.numeric(lon),#
+  	Station_location = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
+q4_answ
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(lon = as.numeric(lon),#
+  	Station_location = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))#
+#
+#Answer q4:#
+q4_answ
+ster()
+str(data)
+lon = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
+"Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(lon = as.numeric(lon),#
+  	"Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(lon = as.numeric(lon)) %>%#
+  mutate("Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))#
+#
+#Answer q4:
+q4_answ
+ungroup() %>%
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(lon = as.numeric(lon)) %>%#
+  ungroup() %>%#
+  mutate("Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  mutate(lon = as.numeric(lon)) %>%#
+  ungroup() %>%#
+  mutate("Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))
+q4_answ
+q4_answ <- data %>%#
+  #join datasets#
+  left_join(stations_2, by = "Station_number") %>%#
+  #filter for minimum and maximun longitude#
+  filter(lon == min(lon) | lon == max(lon)) %>%#
+  #convert solar exposure to numeric, remove NAs #
+  mutate(Solar_exposure = as.numeric(Solar_exposure),#
+  lon = as.numeric(lon)) %>%#
+  drop_na(Solar_exposure) %>%#
+  #group by station number and calculate mean solar exposure#
+  group_by(Station_number, lon) %>%#
+  summarise(Solar_exposure_avg = mean(Solar_exposure)) %>%#
+  ungroup() %>%#
+  mutate("Station_location" = case_when(lon == min(lon) ~ "westmost", lon == max(lon) ~ "eastmost"))#
+#
+#Answer q4:#
+q4_answ
