@@ -68,7 +68,8 @@ q2_answ
 #get rid of info column, rename and convert station to numeric
 
 stations_1 <- stations %>% 
-  gather(Station_number, values, -info) %>%
+  #gather(Station_number, values, -info) %>%
+  pivot_longer(cols = c(2:21), names_to = "Station_name", values_to = "values")
   filter(info == "state") %>%
   select(-info)%>%
   rename(state = values) %>%
@@ -102,9 +103,11 @@ q3_answ
 #convert station number to numeric
 
 stations_2 <- stations %>%
-  gather(Station_number, values, -info) %>%
+  #gather(Station_number, values, -info) %>%
+  pivot_longer(-info, names_to = "Station_number", values_to = "values") %>%
   filter(info == "lon" | info == "lat") %>%
-  spread(info, values) %>%
+  #spread(info, values) %>%
+  pivot_wider(id_cols = Station_number, names_from = info, values_from = values) %>%
   mutate(Station_number = as.numeric(Station_number))
 
 q4_answ <- data %>%
