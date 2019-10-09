@@ -82,13 +82,14 @@ data_q4_1 <- data_all %>%
   unite("Station", Station_number, state)
 
 #plot with facets by Station
-ggplot(data_q4_1, aes(x= factor(Month), y = rain_avg, group = 1)) +
+fig6 <- ggplot(data_q4_1, aes(x= factor(Month), y = rain_avg, group = 1)) +
   geom_line() +
   xlab("Month") +
   ylab("Average Rainfall") +
   ggtitle("Average rainfall for each station") +
   facet_wrap(~Station, ncol = 4)
-
+fig6
+ggsave("results/average_rainfall_for_each_station_1.pdf", plot = fig6)
 
 #Solution 2
 
@@ -97,11 +98,12 @@ data_q4_2 <- data_all %>%
   drop_na() %>%
   summarise(rain_avg = mean(Rainfall))
 
-ggplot(data_q4_2, aes(x= factor(Month), y = rain_avg, group = factor(Station_number), colour = factor(Station_number))) +
+fig7 <- ggplot(data_q4_2, aes(x= factor(Month), y = rain_avg, group = factor(Station_number), colour = factor(Station_number))) +
   geom_line() +
   xlab("Month") +
   ylab("Average Rainfall") +
   ggtitle("Average rainfall for each station") +
   facet_wrap(~state)
-
+fig7
+ggsave("results/average_rainfall_for_each_station_2.pdf", plot = fig7)
 
