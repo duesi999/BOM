@@ -74,17 +74,34 @@ ggsave("results/max_vs_min_temp_rainfall_solar-exposure.pdf", plot = fig5, width
 # 
 # Using the entire BOM dataset, calculate the average monthly rainfall for each station. Produce a lineplot to visualise this data and the state each station is in.
 
-data_q4 <- data_all %>%
+#Solution 1 - unite Station_number and ste into one column and then plot
+data_q4_1 <- data_all %>%
   group_by(state, Station_number, Month) %>%
   drop_na() %>%
   summarise(rain_avg = mean(Rainfall)) %>%
   unite("Station", Station_number, state)
 
-#plot with facets
-ggplot(data_q4, aes(x= factor(Month), y = rain_avg, group = 1)) +
+#plot with facets by Station
+ggplot(data_q4_1, aes(x= factor(Month), y = rain_avg, group = 1)) +
   geom_line() +
   xlab("Month") +
   ylab("Average Rainfall") +
   ggtitle("Average rainfall for each station") +
   facet_wrap(~Station, ncol = 4)
+
+
+#Solution 2
+
+data_q4_2 <- data_all %>%
+  group_by(state, Station_number, Month) %>%
+  drop_na() %>%
+  summarise(rain_avg = mean(Rainfall))
+
+ggplot(data_q4_2, aes(x= factor(Month), y = rain_avg, group = factor(Station_number), colour = factor(Station_number))) +
+  geom_line() +
+  xlab("Month") +
+  ylab("Average Rainfall") +
+  ggtitle("Average rainfall for each station") +
+  facet_wrap(~state)
+
 
